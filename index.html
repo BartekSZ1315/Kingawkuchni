@@ -1,0 +1,826 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="description" content="Kinga w Kuchni - pyszne wypieki, cennik, blog i kontakt. Sprawdź nasze przepisy i ofertę!" />
+<title>KingawKuchni</title>
+<style>
+:root {
+      --color-bg: #fdf6e3;
+      --color-primary: #a67c52;
+      --color-primary-light: #c8a97e;
+      --color-text: #4a3c2b;
+      --color-text-muted: #7b6c59;
+      --color-white: #ffffff;
+      --color-black: #000000;
+      --color-shadow: rgba(166, 124, 82, 0.15);
+      --font-family: 'Arial', sans-serif;
+    }
+
+    body {
+      background-color: var(--color-bg);
+      color: var(--color-text);
+      font-family: var(--font-family);
+      margin: 0;
+      line-height: 1.6;
+    }
+
+    header {
+      background-color: var(--color-primary);
+      color: var(--color-white);
+      padding: 1rem 1.5rem;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      box-shadow: 0 3px 8px var(--color-shadow);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+  nav {
+    display: flex;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+  }
+ nav a {
+  color: black;
+  text-decoration: none;
+  font-weight: 600;
+  padding: 0.4rem 0.8rem;
+  border-radius: 5px;
+  user-select: none;
+}
+nav a:hover,
+nav a.active {
+  background-color: var(--color-primary-light);
+  color: black;
+  }
+  nav a:focus-visible {
+    outline: 3px solid var(--color-primary-light);
+    outline-offset: 3px;
+  }
+  main {
+    max-width: 900px;
+    margin: 2rem auto 4rem;
+    padding: 0 1rem;
+  }
+  h1, h2, h3 {
+    margin: 0;
+  }
+  h2 {
+    text-align: center;
+    margin-bottom: 1.5rem;
+    font-weight: 700;
+    color: var(--color-primary);
+  }
+ .wypieki-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1rem;
+  justify-content: center;
+}
+
+
+.wypiek-item {
+  flex: 1 1 250px; /* minimum 250px, rośnie */
+  max-width: 300px;
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+  }
+  .wypiek-item:hover,
+  .wypiek-item:focus-visible {
+    transform: scale(1.05);
+    box-shadow: 0 6px 18px var(--color-shadow);
+  }
+  .wypiek-zdjecie {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    display: block;
+    flex-shrink: 0;
+    border-bottom: 2px solid var(--color-primary);
+  }
+  .wypiek-item p {
+    margin: 1rem 0;
+    font-weight: 600;
+    text-align: center;
+    color: var(--color-text-muted);
+    flex-grow: 1;
+  }
+ .cennik-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1rem;
+  justify-content: center;
+}
+
+  .cennik-zdjecie {
+    max-width: 350px;
+    width: 100%;
+    border-radius: 10px;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.12);
+    object-fit: cover;
+    height: 600px;
+    user-select: none;
+  }
+  .cennik-info {
+    text-align: center;
+    font-size: 1.15rem;
+    color: var(--color-text-muted);
+    max-width: 700px;
+    margin: 0 auto;
+    user-select: none;
+  }
+  article.blog-post {
+    background: var(--color-white);
+    padding: 1rem 1.5rem;
+    border-radius: 10px;
+    box-shadow: 0 3px 8px var(--color-shadow);
+    max-width: 700px;
+    margin: 0 auto 3rem;
+    user-select: text;
+  }
+  article.blog-post h3 {
+    margin-top: 0;
+    color: var(--color-primary);
+    font-weight: 700;
+  }
+  article.blog-post img {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+    margin: 0.75rem 0;
+    object-fit: cover;
+    user-select: none;
+  }
+  article.blog-post p {
+    font-size: 1rem;
+    color: var(--color-text);
+  }
+  #kontakt p,
+  #onas p {
+    max-width: 400px;
+    margin: 0.5rem auto;
+    font-size: 1.1rem;
+    color: var(--color-text-muted);
+    user-select: text;
+  }
+  #kontakt strong,
+  #onas strong {
+    color: var(--color-primary);
+  }
+  #map iframe {
+    width: 100%;
+    height: 350px;
+    border: none;
+    border-radius: 10px;
+    display: block;
+    margin: 1.5rem auto 3rem;
+    user-select: none;
+  }
+  .lightbox {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0,0,0,0.85);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 2000;
+    padding: 1rem;
+  }
+  .lightbox img {
+    max-width: 90%;
+    max-height: 90%;
+    border-radius: 12px;
+    box-shadow: 0 0 25px #fff;
+    user-select: none;
+  }
+.lightbox {
+  display: none; /* na start niewidoczne */
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.9);
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+  cursor: zoom-out;
+}
+const lightbox = document.getElementById('lightbox');
+const lightboxImg = document.getElementById('lightbox-img');
+const closeBtn = document.getElementById('lightbox-close');
+const thumbnails = document.querySelectorAll('.thumbnail');
+
+thumbnails.forEach(img => {
+  img.addEventListener('click', () => {
+    lightbox.style.display = 'flex'; // pokazujemy lightbox
+    lightboxImg.src = img.src;        // ustawiamy duże zdjęcie
+    lightboxImg.alt = img.alt;
+  });
+});
+
+// Zamknij lightbox klikając X
+closeBtn.addEventListener('click', () => {
+  lightbox.style.display = 'none';
+  lightboxImg.src = '';
+});
+
+// Zamknij lightbox klikając poza zdjęcie
+lightbox.addEventListener('click', (e) => {
+  if (e.target === lightbox) {
+    lightbox.style.display = 'none';
+    lightboxImg.src = '';
+  }
+});
+
+// Zamknij lightbox naciskając ESC
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape' && lightbox.style.display === 'flex') {
+    lightbox.style.display = 'none';
+    lightboxImg.src = '';
+  }
+});
+.lightbox-content {
+  max-width: 90vw;
+  max-height: 90vh;
+  border-radius: 5px;
+}
+
+.close {
+  position: absolute;
+  top: 20px;
+  right: 35px;
+  color: white;
+  font-size: 40px;
+  font-weight: bold;
+  cursor: pointer;
+  user-select: none;
+}
+
+  .lightbox .close {
+    position: absolute;
+    top: 20px;
+    right: 30px;
+    font-size: 2.5rem;
+    color: white;
+    cursor: pointer;
+    user-select: none;
+    background: none;
+    border: none;
+  }
+  .lightbox .close:focus {
+    outline: 3px solid var(--color-primary-light);
+    outline-offset: 3px;
+  }
+  .subscribe-form {
+    background: var(--color-white);
+    padding: 2rem 1.5rem;
+    border-radius: 10px;
+    box-shadow: 0 3px 10px rgba(166,124,82,0.2);
+    max-width: 500px;
+    margin: 3rem auto 5rem;
+    text-align: center;
+    user-select: none;
+  }
+  .subscribe-form h2 {
+    margin-bottom: 1rem;
+    user-select: text;
+  }
+  .subscribe-form input[type="email"] {
+    padding: 0.8rem;
+    font-size: 1rem;
+    border: 2px solid var(--color-primary);
+    border-radius: 6px;
+    width: 70%;
+    max-width: 300px;
+    margin-right: 0.8rem;
+    box-sizing: border-box;
+    transition: border-color 0.3s ease;
+  }
+  .subscribe-form input[type="email"]:focus {
+    border-color: var(--color-primary-light);
+    outline: none;
+  }
+  .subscribe-form button {
+    background: var(--color-primary);
+    color: var(--color-white);
+    border: none;
+    padding: 0.75rem 1.5rem;
+    font-weight: 700;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  .subscribe-form button:hover,
+  .subscribe-form button:focus-visible {
+    background: var(--color-primary-light);
+    outline: none;
+  }
+  footer {
+    background-color: var(--color-primary);
+    color: var(--color-white);
+    text-align: center;
+    padding: 1rem 1rem;
+    font-size: 0.9rem;
+    user-select: none;
+  }
+  a.instagram-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--color-white);
+    font-weight: 600;
+    text-decoration: none;
+    border: 2px solid var(--color-white);
+    padding: 0.3rem 0.7rem;
+    border-radius: 20px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
+  a.instagram-link:hover,
+  a.instagram-link:focus-visible {
+    background-color: var(--color-white);
+    color: var(--color-primary);
+    outline: none;
+  }
+  a.instagram-link svg {
+    width: 18px;
+    height: 18px;
+    fill: currentColor;
+  }
+  button#lang-switch {
+    background: var(--color-white);
+    color: var(--color-primary);
+    border: none;
+    padding: 0.4rem 0.8rem;
+    font-weight: 700;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
+  button#lang-switch:hover,
+  button#lang-switch:focus-visible {
+    background-color: var(--color-primary-light);
+    color: var(--color-white);
+    outline: none;
+  }
+@media (max-width: 480px) {
+  header img {
+    height: 80px;
+  }
+  #site-title {
+    font-size: 1.5rem;
+  }
+}
+@media (max-width: 480px) {
+  .wypiek-zdjecie {
+    height: 160px;
+  }
+
+  .cennik-zdjecie {
+    max-height: 250px;
+  }
+}
+@media (max-width: 480px) {
+  nav a {
+    padding: 0.6rem 1rem;
+    width: 100%;
+    text-align: center;
+  }
+}
+@media (max-width: 480px) {
+  button#lang-switch {
+    margin-top: 1rem;
+    align-self: center;
+  }
+}
+@media (max-width: 480px) {
+  .lightbox img {
+    max-width: 95%;
+    max-height: 80%;
+  }
+}
+@media (max-width: 480px) {
+  article.blog-post {
+    padding: 1.2rem;
+    font-size: 1.05rem;
+  }
+}
+@media (max-width: 480px) {
+  .wypieki-grid,
+  .cennik-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+:target {
+  scroll-margin-top: 100px;
+}
+
+  nav {
+    width: 100%;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .wypieki-grid {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .wypiek-item {
+    width: 90%;
+    max-width: 400px;
+  }
+.cennik-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1rem;
+  justify-content: center;
+}
+
+.cennik-grid img {
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+  display: block;
+  max-width: 100%;
+}
+
+  .subscribe-form input[type="email"] {
+    width: 100%;
+    margin-bottom: 1rem;
+  }
+
+  .subscribe-form button {
+    width: 100%;
+  }
+}
+/* Lightbox - ciemne tło na całą stronę */
+.lightbox {
+  display: none; /* domyślnie ukryty */
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0,0,0,0.8);
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+}
+
+/* Obraz w lightboxie */
+.lightbox img {
+  max-width: 90%;
+  max-height: 90%;
+  box-shadow: 0 0 15px rgba(255,255,255,0.3);
+  border-radius: 8px;
+}
+
+/* Przycisk zamknięcia (X) */
+.lightbox .close {
+  position: fixed;
+  top: 20px;
+  right: 30px;
+  background: transparent;
+  border: none;
+  font-size: 40px;
+  color: white;
+  cursor: pointer;
+  user-select: none;
+  z-index: 10000;
+  font-weight: bold;
+  line-height: 1;
+}
+
+</style>
+</head>
+<body>
+<header>
+  <a href="#" aria-label="Strona główna KingawKuchni" style="display:flex; align-items:center; gap:10px; text-decoration:none; color: inherit;">
+    <img src="logo.png" alt="Logo KingawKuchni" style="height:120px;" />
+    <h1 id="site-title" style="margin:0;">KingawKuchni</h1>
+  </a>
+  <button id="lang-switch">Zmień język</button>
+</header>
+
+  <nav aria-label="Główne menu nawigacyjne">
+    <a href="#onas" id="nav-about" class="active" tabindex="0"></a>
+    <a href="#wypieki" id="nav-products" tabindex="0"></a>
+    <a href="#cennik" id="nav-prices" tabindex="0"></a>
+    <a href="#blog" id="nav-blog" tabindex="0"></a>
+    <a href="#kontakt" id="nav-contact" tabindex="0"></a>
+  </nav>
+  <button id="lang-switch" aria-label="Przełącz język na angielski">EN</button>
+</header>
+
+<main>
+  <section id="onas" tabindex="0" aria-label="O nas / About us">
+    <h2 id="about-title"></h2>
+    <p id="about-text"></p>
+  </section>
+
+  <section id="wypieki" tabindex="0" aria-label="Oferta wypieków / Baked goods offer">
+    <h2 id="products-title"></h2>
+    <div class="wypieki-grid" aria-label="Galeria wypieków / Baked goods gallery">
+      <div class="wypiek-item" tabindex="0" role="button" aria-label="" id="product1">
+       <img src="wypiek1.jpg" width="200" height="250" alt="Opis zdjęcia">
+
+        <p id="product1-text"></p>
+      </div>
+      <div class="wypiek-item" tabindex="0" role="button" aria-label="" id="product2">
+         <img src="wypiek2.jpg" width="200" height="250" alt="Opis zdjęcia">
+
+        <p id="product2-text"></p>
+      </div>
+      <div class="wypiek-item" tabindex="0" role="button" aria-label="" id="product3">
+       <img src="wypiek3.jpg" width="200" height="250" alt="Opis zdjęcia">
+
+        <p id="product2-text"></p>
+      </div>
+      <div class="wypiek-item" tabindex="0" role="button" aria-label="" id="product4">
+         <img src="wypiek4.jpg" width="200" height="250" alt="Opis zdjęcia">
+
+        <p id="product2-text"></p>
+      </div>
+      <div class="wypiek-item" tabindex="0" role="button" aria-label="" id="product5">
+        <img src="wypiek5.jpg" width="200" height="250" alt="Opis zdjęcia">
+
+        <p id="product2-text"></p>
+      </div>
+      <div class="wypiek-item" tabindex="0" role="button" aria-label="" id="product6">
+         <img src="wypiek6.jpg" width="200" height="250" alt="Opis zdjęcia">
+
+        <p id="product2-text"></p>
+      </div>
+      <div class="wypiek-item" tabindex="0" role="button" aria-label="" id="product7">
+       <img src="wypiek7.jpg" width="200" height="250" alt="Opis zdjęcia">
+
+        <p id="product2-text"></p>
+      </div>
+      <div class="wypiek-item" tabindex="0" role="button" aria-label="" id="product8">
+        <img src="wypiek8.jpg" width="200" height="250" alt="Opis zdjęcia">
+
+        <p id="product2-text"></p>
+      </div>
+      <div class="wypiek-item" tabindex="0" role="button" aria-label="" id="product9">
+         <img src="wypiek9.jpg" width="200" height="250" alt="Opis zdjęcia">
+
+        <p id="product2-text"></p>
+      </div>
+      <div class="wypiek-item" tabindex="0" role="button" aria-label="" id="product10">
+       <img src="wypiek10.jpg" width="200" height="250" alt="Opis zdjęcia">
+
+        <p id="product2-text"></p>
+      </div>
+      <div class="wypiek-item" tabindex="0" role="button" aria-label="" id="product11">
+        <img src="wypiek11.jpg" width="200" height="250" alt="Opis zdjęcia">
+       <p id="product3-text"></p>
+      </div>
+      <div class="wypiek-item" tabindex="0" role="button" aria-label="" id="product12">
+        <img src="wypiek12.jpg" width="200" height="250" alt="Opis zdjęcia">
+
+        <p id="product4-text"></p>
+      </div>
+    </div>
+  </section>
+ <div class="lightbox" id="lightbox">
+    <span class="close" id="lightbox-close">&times;</span>
+    <img class="lightbox-content" id="lightbox-img" />
+  </div>
+
+  <section id="cennik" tabindex="0" aria-label="Cennik wypieków / Price list of baked goods">
+    <h2 id="prices-title"></h2>
+    <div class="cennik-grid" aria-label="Galeria zdjęć cennika / Price list photos gallery">
+      <img src="cennik1.jpg" alt="" class="cennik-zdjecie" tabindex="0" />
+      <img src="cennik2.jpg" alt="" class="cennik-zdjecie" tabindex="0" />
+ <img src="cennik3.jpg" alt="" class="cennik-zdjecie" tabindex="0" />
+
+    </div>
+    <p class="cennik-info" id="prices-info"></p>
+  </section>
+
+  <section id="blog" tabindex="0" aria-label="Blog kulinarny KingawKuchni / KingawKuchni culinary blog">
+    <h2 id="blog-title"></h2>
+    <article class="blog-post" tabindex="0" aria-label="">
+      <h3 id="blog-post1-title"></h3>
+           <p id="blog-post1-text"></p>
+    </article>
+    <article class="blog-post" tabindex="0" aria-label="">
+      <h3 id="blog-post2-title"></h3>
+          <p id="blog-post2-text"></p>
+    </article>
+  </section>
+
+  <section id="kontakt" tabindex="0" aria-label="Kontakt i lokalizacja KingawKuchni / Contact and location of KingawKuchni">
+    <h2 id="contact-title"></h2>
+    <p><strong id="contact-phone-label"></strong>: +48 797 300 079</p>
+    <p><strong id="contact-email-label"></strong>: kingawkuchnikontakt1@gmail.com</p>
+    <p>
+<p><strong>Adres</strong>: ul. Przepiórcza 79, 86-060 Tarkowo Dolne</p>
+    <p>
+    <strong id="contact-instagram-label"></strong>:
+     <a href="https://www.instagram.com/kingaawkuchni?igsh=MTN3azZ5dnRiZzlvNA==" class="instagram-link" target="_blank" rel="noopener noreferrer" aria-label="Profil KingawKuchni na Instagramie / KingawKuchni Instagram profile">
+        <svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" width="18" height="18"><path d="M7.75 2A5.75 5.75 0 0 0 2 7.75v8.5A5.75 5.75 0 0 0 7.75 22h8.5A5.75 5.75 0 0 0 22 16.25v-8.5A5.75 5.75 0 0 0 16.25 2h-8.5zm7.23 4.19a1.05 1.05 0 1 1-2.1 0 1.05 1.05 0 0 1 2.1 0zM12 7.5a4.5 4.5 0 1 1 0 9 4.5 4.5 0 0 1 0-9z"/></svg>
+      Kingawkuchni     </a>
+    </p>
+    <div id="map" aria-label="Mapa lokalizacji sklepu KingawKuchni / Map of KingawKuchni store location">
+<iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d150.24023455456947!2d18.119398370362923!3d52.951234410985556!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47034321bddc4c9b%3A0xcb9a4894c9f888b1!2sPrzepi%C3%B3rcza%2079%2C%2086-060%20Tarkowo%20Dolne!5e0!3m2!1spl!2spl!4v1749824175147!5m2!1spl!2spl" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+    </div>
+  </section>
+</main>
+
+<footer>
+  &copy; 2025 KingawKuchni Wszystkie prawa zastrzeżone </footer>
+
+<script>
+  // Teksty w obu językach
+  const texts = {
+    pl: {
+      navAbout: "O nas",
+      navProducts: "Oferta wypieków",
+      navPrices: "Cennik",
+      navBlog: "Blog",
+      navContact: "Kontakt",
+
+      aboutTitle: "O nas",
+      aboutText: "KingawKuchni to miejsce pełne pasji do pieczenia i kulinarnej sztuki tworze pyszne wypieki, które zachwycają smakiem i wyglądem.",
+      pricesTitle: "Cennik",
+      pricesInfo: "Aktualne ceny naszych wypieków znajdziesz na powyższych zdjęciach.",
+
+      blogTitle: "Blog",
+      blogPost1Title: "Jak upiec idealny sernik?",
+      blogPost1Text: "Przepis na puszysty i kremowy sernik, który zachwyci każdego...",
+      blogPost2Title: "Makowiec na Święta",
+      blogPost2Text: "Tradycyjny przepis na makowiec z pysznym makiem i kruchym ciastem...",
+
+      contactTitle: "Kontakt",
+      contactPhoneLabel: "Telefon",
+      contactEmailLabel: "Email",
+      contactInstagramLabel: "Instagram"
+
+
+    },
+    en: {
+      navAbout: "About Us",
+      navProducts: "Baked Goods",
+      navPrices: "Price List",
+      navBlog: "Blog",
+      navContact: "Contact",
+
+      aboutTitle: "About Us",
+      aboutText: "Kinga in the Kitchen is a place full of passion for baking and culinary art. For years, we have been creating delicious baked goods that delight with their taste and appearance.",
+
+      pricesTitle: "Price List",
+      pricesInfo: "You can find current prices of our baked goods in the photos above.",
+
+      blogTitle: "Blog",
+      blogPost1Title: "How to Bake the Perfect Cheesecake?",
+      blogPost1Text: "A recipe for a fluffy and creamy cheesecake that will delight everyone...",
+      blogPost2Title: "Poppy Seed Cake for the Holidays",
+      blogPost2Text: "Traditional recipe for poppy seed cake with delicious poppy seeds and crispy dough...",
+
+      contactTitle: "Contact",
+      contactPhoneLabel: "Phone",
+      contactEmailLabel: "Email",
+      contactInstagramLabel: "Instagram"
+    }
+  };
+
+  // Aktualny język
+  let currentLang = "pl";
+
+  function setLanguage(lang) {
+    currentLang = lang;
+
+    document.documentElement.lang = lang === "pl" ? "pl" : "en";
+
+    // Nagłówki menu
+    document.getElementById("nav-about").textContent = texts[lang].navAbout;
+    document.getElementById("nav-products").textContent = texts[lang].navProducts;
+    document.getElementById("nav-prices").textContent = texts[lang].navPrices;
+    document.getElementById("nav-blog").textContent = texts[lang].navBlog;
+    document.getElementById("nav-contact").textContent = texts[lang].navContact;
+
+    // Sekcja o nas
+    document.getElementById("about-title").textContent = texts[lang].aboutTitle;
+    document.getElementById("about-text").textContent = texts[lang].aboutText;
+
+    // Sekcja wypieków
+    document.getElementById("products-title").textContent = texts[lang].productsTitle;
+    document.getElementById("product1-text").textContent = texts[lang].product1Text;
+    document.getElementById("product2-text").textContent = texts[lang].product2Text;
+    document.getElementById("product3-text").textContent = texts[lang].product3Text;
+    document.getElementById("product4-text").textContent = texts[lang].product4Text;
+
+    // Cennik
+    document.getElementById("prices-title").textContent = texts[lang].pricesTitle;
+    document.getElementById("prices-info").textContent = texts[lang].pricesInfo;
+
+    // Blog
+    document.getElementById("blog-title").textContent = texts[lang].blogTitle;
+    document.getElementById("blog-post1-title").textContent = texts[lang].blogPost1Title;
+    document.getElementById("blog-post1-text").textContent = texts[lang].blogPost1Text;
+    document.getElementById("blog-post2-title").textContent = texts[lang].blogPost2Title;
+    document.getElementById("blog-post2-text").textContent = texts[lang].blogPost2Text;
+
+    // Kontakt
+    document.getElementById("contact-title").textContent = texts[lang].contactTitle;
+    document.getElementById("contact-phone-label").textContent = texts[lang].contactPhoneLabel;
+    document.getElementById("contact-email-label").textContent = texts[lang].contactEmailLabel;
+    document.getElementById("contact-instagram-label").textContent = texts[lang].contactInstagramLabel;
+
+    // Zmień tekst przycisku
+    document.getElementById("lang-switch").textContent = lang === "pl" ? "EN" : "PL";
+    document.getElementById("lang-switch").setAttribute("aria-label", lang === "pl" ? "Przełącz język na angielski" : "Switch language to Polish");
+  }
+
+  // Inicjalizacja języka na stronie
+  setLanguage(currentLang);
+
+  // Obsługa przycisku zmiany języka
+  document.getElementById("lang-switch").addEventListener("click", () => {
+    setLanguage(currentLang === "pl" ? "en" : "pl");
+  });
+</script>
+
+<div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Podgląd zdjęcia" style="display:none;">
+  <button class="close" id="lightbox-close" aria-label="Zamknij podgląd">×</button>
+  <img id="lightbox-img" src="" alt="" />
+</div>
+
+<script>
+  let currentLang = "pl";
+
+  // Funkcja do ustawiania języka (przykład)
+  function setLanguage(lang) {
+    currentLang = lang;
+    console.log("Ustawiono język na: " + lang);
+    // Tutaj możesz dodać więcej kodu do zmiany tekstów na stronie
+  }
+
+  document.getElementById("lang-switch").addEventListener("click", () => {
+    setLanguage(currentLang === "pl" ? "en" : "pl");
+  });
+
+  // Lightbox
+  const lightbox = document.getElementById('lightbox');
+  const lightboxImg = document.getElementById('lightbox-img');
+  const lightboxClose = document.getElementById('lightbox-close');
+
+  document.querySelectorAll('.wypiek-zdjecie, .cennik-zdjecie').forEach(img => {
+    img.addEventListener('click', () => {
+      lightboxImg.src = img.src;
+      lightboxImg.alt = img.alt || "";
+      lightbox.style.display = 'flex';
+    });
+  });
+
+  lightboxClose.addEventListener('click', () => {
+    lightbox.style.display = 'none';
+    lightboxImg.src = '';
+    lightboxImg.alt = '';
+  });
+
+  // Zamknięcie lightboxa po kliknięciu poza obrazem
+  lightbox.addEventListener('click', (e) => {
+    if (e.target === lightbox) {
+      lightbox.style.display = 'none';
+      lightboxImg.src = '';
+      lightboxImg.alt = '';
+    }
+  });
+<script src="script.js"></script>
+</script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
